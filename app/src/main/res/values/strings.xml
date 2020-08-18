@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Sendia</string>
+    <string name="first_time_login">
+        I noticed this is your first time to Login into this app.
+        please go to setting and update your profile before you continue
+    </string>
+
+<!--    Fragment tags-->
+    <string name="Home_fragment">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello Home fragment</string>
+</resources>
