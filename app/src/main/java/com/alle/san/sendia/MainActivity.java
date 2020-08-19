@@ -1,5 +1,6 @@
 package com.alle.san.sendia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,13 +10,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.alle.san.sendia.models.User;
 import com.alle.san.sendia.utils.Constants;
 import com.alle.san.sendia.utils.PreferenceKeys;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity implements UserRvClicks{
     private static final String TAG = "MainScreen";
+    BottomNavigationViewEx viewEx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +29,40 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks{
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: the activity is started");
 
+        viewEx = findViewById(R.id.main_nav_bar);
+
         loginDialog();
-        init();
+        initFragment();
+        bottomNavigation();
         }
 
-    private void init() {
+    private void bottomNavigation() {
+        viewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case (R.id.action_home):
+                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_LONG).show();
+                        return true;
+
+                    case (R.id.action_connnections):
+                        Toast.makeText(MainActivity.this, "Connections", Toast.LENGTH_LONG).show();
+                        return true;
+
+                    case (R.id.action_profile):
+                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
+                        return true;
+
+                    default:
+                        return false;
+                }
+
+
+            }
+        });
+    }
+
+    private void initFragment() {
         Log.d(TAG, "init: adding home fragment to container");
         HomeFragment homeFragment = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

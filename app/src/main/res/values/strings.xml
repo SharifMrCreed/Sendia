@@ -21,4 +21,6 @@
     <string name="interested_in">Interested In:</string>
     <string name="status">Status:</string>
     <string name="looking">Looking</string>
+    <string name="fragment_connections">Connections</string>
+    <string name="fragment_profile">Profile</string>
 </resources>
