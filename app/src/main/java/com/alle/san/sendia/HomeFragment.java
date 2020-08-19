@@ -3,9 +3,8 @@ package com.alle.san.sendia;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +40,6 @@ public class HomeFragment extends Fragment {
             matches.addAll(Arrays.asList(users.USERS));
         }
         usersRecyclerView.setAdapter(new UserDisplayAdapter(matches, getActivity()));
-        usersRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(COLUMNS, LinearLayoutManager.VERTICAL));
+        usersRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), COLUMNS));
     }
 }

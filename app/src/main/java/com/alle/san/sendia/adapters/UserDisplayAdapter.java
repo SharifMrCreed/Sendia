@@ -5,14 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alle.san.sendia.R;
+import com.alle.san.sendia.UserRvClicks;
 import com.alle.san.sendia.models.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,8 +23,9 @@ import java.util.ArrayList;
 public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.UsersViewHolder> {
     private static final String TAG = "UserDisplayAdapter";
 
-    ArrayList<User> users = new ArrayList<>();
+    ArrayList<User> users;
     Context context;
+    UserRvClicks nUserRvClicks;
 
     public UserDisplayAdapter(ArrayList<User> users, Context context) {
         this.users = users;
@@ -39,8 +41,20 @@ public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UsersViewHolder holder, final int position) {
         holder.Bind(position);
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nUserRvClicks.whenUserClicks(users.get(position));
+            }
+        });
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        nUserRvClicks = (UserRvClicks) context;
     }
 
     @Override
@@ -48,12 +62,13 @@ public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.
         return users.size();
     }
 
-    public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class UsersViewHolder extends RecyclerView.ViewHolder {
 
         ImageView profileImage;
         TextView name;
         TextView status;
         TextView interestedIn;
+        CardView card;
 
         public UsersViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,11 +76,13 @@ public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.
             name = itemView.findViewById(R.id.name);
             status = itemView.findViewById(R.id.status);
             interestedIn = itemView.findViewById(R.id.interested_in);
+            card = itemView.findViewById(R.id.card_view);
+
         }
         public  void Bind(int position){
             User user = users.get(position);
             RequestOptions requestOptions = new RequestOptions()
-                                                .placeholder(R.drawable.ic_person);
+                                                .placeholder(R.drawable.allecon);
             Glide.with(context)
                     .load(user.getProfile_image())
                     .apply(requestOptions)
@@ -75,10 +92,6 @@ public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.
             interestedIn.setText(user.getInterested_in());
         }
 
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            Log.d(TAG, "in VH class onClick: user" + users.get(position).getName() + "has been clicked" );
-        }
+
     }
 }

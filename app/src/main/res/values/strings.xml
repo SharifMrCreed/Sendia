@@ -5,9 +5,20 @@
         please go to setting and update your profile before you continue
     </string>
 
-<!--    Fragment tags-->
+    <!--    Fragment tags-->
     <string name="Home_fragment">Home</string>
+    <string name="Login_fragment">Profile</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello Home fragment</string>
+    <string name="back_arrow">back Arrow</string>
+    <string name="user_name">user.name</string>
+    <string name="image">image</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="interested_in">Interested In:</string>
+    <string name="status">Status:</string>
+    <string name="looking">Looking</string>
 </resources>

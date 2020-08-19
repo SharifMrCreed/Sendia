@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="center"
                 android:id="@+id/profile_image"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/allecon" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
