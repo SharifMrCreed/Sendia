@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +17,8 @@ import com.alle.san.sendia.utils.Constants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.Objects;
 
-
-public class LogInFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
     User user = new User();
     ImageView backArrow;
@@ -45,7 +42,7 @@ public class LogInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_log_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         backArrow = view.findViewById(R.id.image_back_arrow);
         photo = view.findViewById(R.id.profile_image);

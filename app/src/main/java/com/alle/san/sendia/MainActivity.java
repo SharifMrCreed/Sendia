@@ -13,13 +13,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.alle.san.sendia.adapters.UserRvClicks;
 import com.alle.san.sendia.models.User;
 import com.alle.san.sendia.utils.Constants;
 import com.alle.san.sendia.utils.PreferenceKeys;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class MainActivity extends AppCompatActivity implements UserRvClicks{
+public class MainActivity extends AppCompatActivity implements UserRvClicks {
     private static final String TAG = "MainScreen";
     BottomNavigationViewEx viewEx;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks{
         viewEx = findViewById(R.id.main_nav_bar);
 
         loginDialog();
-        initFragment();
+        initHomeFragment();
         bottomNavigation();
         }
 
@@ -40,17 +41,26 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks{
         viewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch(item.getItemId()){
                     case (R.id.action_home):
                         Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_LONG).show();
+                        initHomeFragment();
                         return true;
 
                     case (R.id.action_connnections):
                         Toast.makeText(MainActivity.this, "Connections", Toast.LENGTH_LONG).show();
+                        initConnectionsFragment();
                         return true;
 
                     case (R.id.action_profile):
                         Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
+                        initMyProfileFragment();
+                        return true;
+
+                    case (R.id.action_chats):
+                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
+                        initMessagesFragment();
                         return true;
 
                     default:
@@ -62,12 +72,42 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks{
         });
     }
 
-    private void initFragment() {
+    private void initHomeFragment() {
         Log.d(TAG, "init: adding home fragment to container");
         HomeFragment homeFragment = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_container, homeFragment, getString(R.string.Home_fragment));
         transaction.addToBackStack(getString(R.string.Home_fragment));
+        transaction.commit();
+
+    }
+
+    private void initConnectionsFragment() {
+        Log.d(TAG, "init: adding connections fragment to container");
+        ConnectionsFragment connectionsFragment = new ConnectionsFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content_container, connectionsFragment, getString(R.string.fragment_connections));
+        transaction.addToBackStack(getString(R.string.fragment_connections));
+        transaction.commit();
+
+    }
+
+    private void initMessagesFragment() {
+        Log.d(TAG, "init: adding Messages fragment to container");
+        MessagesFragment messagesFragment = new MessagesFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content_container, messagesFragment, getString(R.string.chats));
+        transaction.addToBackStack(getString(R.string.chats));
+        transaction.commit();
+
+    }
+
+    private void initMyProfileFragment() {
+        Log.d(TAG, "init: adding My profile fragment to container");
+        MyProfileFragment myProfileFragment = new MyProfileFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content_container, myProfileFragment, getString(R.string.fragment_profile));
+        transaction.addToBackStack(getString(R.string.fragment_profile));
         transaction.commit();
 
     }
@@ -98,14 +138,14 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks{
 
     @Override
     public void whenUserClicks(User user) {
-        LogInFragment logInFragment = new LogInFragment();
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
 
         Bundle args = new Bundle();
         args.putParcelable(Constants.INTENT_USER, user);
-        logInFragment.setArguments(args);
+        userProfileFragment.setArguments(args);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content_container, logInFragment, getString(R.string.Login_fragment));
+        transaction.replace(R.id.main_content_container, userProfileFragment, getString(R.string.Login_fragment));
         transaction.addToBackStack(getString(R.string.Login_fragment));
         transaction.commit();
 

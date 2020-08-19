@@ -1,4 +1,4 @@
-package com.alle.san.sendia;
+package com.alle.san.sendia.adapters;
 
 import com.alle.san.sendia.models.User;
 
