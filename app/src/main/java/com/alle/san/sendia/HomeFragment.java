@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.alle.san.sendia.adapters.UserDisplayAdapter;
 import com.alle.san.sendia.models.User;
+import com.alle.san.sendia.utils.Constants;
 import com.alle.san.sendia.utils.Users;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class HomeFragment extends Fragment {
 
     RecyclerView usersRecyclerView;
     ArrayList<User> matches = new ArrayList<>();
-    private static final int COLUMNS = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +40,6 @@ public class HomeFragment extends Fragment {
             matches.addAll(Arrays.asList(users.USERS));
         }
         usersRecyclerView.setAdapter(new UserDisplayAdapter(matches, getActivity()));
-        usersRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), COLUMNS));
+        usersRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Constants.COLUMNS));
     }
 }

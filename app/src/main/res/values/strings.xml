@@ -24,4 +24,5 @@
     <string name="fragment_connections">Connections</string>
     <string name="fragment_profile">Profile</string>
     <string name="chats">Chats</string>
+    <string name="no_connections">No Connections</string>
 </resources>

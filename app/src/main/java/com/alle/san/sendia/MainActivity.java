@@ -37,6 +37,45 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks {
         bottomNavigation();
         }
 
+    private void loginDialog() {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstLogin = preferences.getBoolean(PreferenceKeys.FIRST_TIME_LOGIN, true);
+
+        if(isFirstLogin) {
+            AlertDialog.Builder aBuilder = new AlertDialog.Builder(this);
+            aBuilder.setMessage(getString(R.string.first_time_login))
+                    .setIcon(R.drawable.star_on)
+                    .setTitle("Welcome ")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d(TAG, "onClick: Dialog is closed");
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(PreferenceKeys.FIRST_TIME_LOGIN, false);
+                            editor.apply();
+                            dialogInterface.dismiss();
+                        }
+                    });
+            AlertDialog alertDialog = aBuilder.create();
+            alertDialog.show();
+        }
+    }
+
+    @Override
+    public void whenUserClicks(User user) {
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+
+        Bundle args = new Bundle();
+        args.putParcelable(Constants.INTENT_USER, user);
+        userProfileFragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content_container, userProfileFragment, getString(R.string.Login_fragment));
+        transaction.addToBackStack(getString(R.string.Login_fragment));
+        transaction.commit();
+
+    }
+
     private void bottomNavigation() {
         viewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -108,45 +147,6 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_container, myProfileFragment, getString(R.string.fragment_profile));
         transaction.addToBackStack(getString(R.string.fragment_profile));
-        transaction.commit();
-
-    }
-
-    private void loginDialog() {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstLogin = preferences.getBoolean(PreferenceKeys.FIRST_TIME_LOGIN, true);
-
-        if(isFirstLogin) {
-            AlertDialog.Builder aBuilder = new AlertDialog.Builder(this);
-            aBuilder.setMessage(getString(R.string.first_time_login))
-                    .setIcon(R.drawable.star_on)
-                    .setTitle("Welcome ")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.d(TAG, "onClick: Dialog is closed");
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putBoolean(PreferenceKeys.FIRST_TIME_LOGIN, false);
-                            editor.apply();
-                            dialogInterface.dismiss();
-                        }
-                    });
-            AlertDialog alertDialog = aBuilder.create();
-            alertDialog.show();
-        }
-    }
-
-    @Override
-    public void whenUserClicks(User user) {
-        UserProfileFragment userProfileFragment = new UserProfileFragment();
-
-        Bundle args = new Bundle();
-        args.putParcelable(Constants.INTENT_USER, user);
-        userProfileFragment.setArguments(args);
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content_container, userProfileFragment, getString(R.string.Login_fragment));
-        transaction.addToBackStack(getString(R.string.Login_fragment));
         transaction.commit();
 
     }
