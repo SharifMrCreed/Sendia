@@ -27,7 +27,7 @@ public class ConnectionsFragment extends Fragment {
 
     RecyclerView rvSavedConnections;
     TextView noConnections;
-    ArrayList<User> connections;
+    ArrayList<User> connections = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,15 @@ public class ConnectionsFragment extends Fragment {
         if (connections != null){ connections.clear(); }
         for(User user: users.USERS){
             assert savedNames != null;
-            if (savedNames.contains(user.getName())){ connections.add(user); }
+            if (savedNames.contains(user.getName()))
+            { connections.add(user); }
         }
         if (connections == null){
             rvSavedConnections.setVisibility(View.INVISIBLE);
             noConnections.setVisibility(View.VISIBLE);
         }else{
+
+            noConnections.setVisibility(View.INVISIBLE);
             rvSavedConnections.setLayoutManager(new GridLayoutManager(getActivity(), Constants.COLUMNS));
             rvSavedConnections.setAdapter(new UserDisplayAdapter(connections, getActivity()));
         }

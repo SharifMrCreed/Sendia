@@ -83,22 +83,18 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks {
 
                 switch(item.getItemId()){
                     case (R.id.action_home):
-                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_LONG).show();
                         initHomeFragment();
                         return true;
 
                     case (R.id.action_connnections):
-                        Toast.makeText(MainActivity.this, "Connections", Toast.LENGTH_LONG).show();
                         initConnectionsFragment();
                         return true;
 
                     case (R.id.action_profile):
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
                         initMyProfileFragment();
                         return true;
 
                     case (R.id.action_chats):
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
                         initMessagesFragment();
                         return true;
 

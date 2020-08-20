@@ -25,4 +25,6 @@
     <string name="fragment_profile">Profile</string>
     <string name="chats">Chats</string>
     <string name="no_connections">No Connections</string>
+    <string name="allez_san">Allez San</string>
+    <string name="female">females</string>
 </resources>
