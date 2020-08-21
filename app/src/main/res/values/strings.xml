@@ -11,7 +11,7 @@
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello Home fragment</string>
+    <string name="no_messages">No messages to Show</string>
     <string name="back_arrow">back Arrow</string>
     <string name="user_name">Profile</string>
     <string name="image">image</string>
@@ -27,4 +27,9 @@
     <string name="no_connections">No Connections</string>
     <string name="allez_san">Allez San</string>
     <string name="female">females</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="background">Background</string>
+    <string name="send">Send</string>
+    <string name="new_message">new message...</string>
 </resources>

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.alle.san.sendia.adapters.UserDisplayAdapter;
 import com.alle.san.sendia.models.User;
-import com.alle.san.sendia.utils.Constants;
+import com.alle.san.sendia.utils.Globals;
 import com.alle.san.sendia.utils.PreferenceKeys;
 import com.alle.san.sendia.utils.Users;
 
@@ -65,7 +65,7 @@ public class ConnectionsFragment extends Fragment {
         }else{
 
             noConnections.setVisibility(View.INVISIBLE);
-            rvSavedConnections.setLayoutManager(new GridLayoutManager(getActivity(), Constants.COLUMNS));
+            rvSavedConnections.setLayoutManager(new GridLayoutManager(getActivity(), Globals.COLUMNS));
             rvSavedConnections.setAdapter(new UserDisplayAdapter(connections, getActivity()));
         }
 

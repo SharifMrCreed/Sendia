@@ -14,10 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alle.san.sendia.models.User;
-import com.alle.san.sendia.utils.Constants;
+import com.alle.san.sendia.utils.Globals;
 import com.alle.san.sendia.utils.PreferenceKeys;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,7 +29,6 @@ import java.util.Set;
 
 public class UserProfileFragment extends Fragment {
 
-    User user = new User();
     RelativeLayout backArrow;
     ImageView photo;
     TextView gender;
@@ -42,6 +40,7 @@ public class UserProfileFragment extends Fragment {
 
     private static final String TAG = "UserProfileFragment";
     private SharedPreferences preferences;
+    User user = new User();
 
 
     @Override
@@ -49,7 +48,7 @@ public class UserProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle!= null){
-            user = bundle.getParcelable(Constants.INTENT_USER);
+            user = bundle.getParcelable(Globals.INTENT_USER);
         }
     }
 
@@ -67,7 +66,6 @@ public class UserProfileFragment extends Fragment {
         mLikeButton = view.findViewById(R.id.heart_button);
         heading = view.findViewById(R.id.fragment_heading);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         heading.setText(user.getName() + "'s " + getString(R.string.fragment_profile));
         bind();
         connectionCheck();
@@ -91,23 +89,26 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void liked(LikeButton likeButton) {
                 Log.d(TAG, "liked: liked");
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = preferences.edit();
 
                 Set<String> savedNames = preferences.getStringSet(PreferenceKeys.CONNECTIONS, new HashSet<String>());
-                assert savedNames != null;
                 savedNames.add(user.getName());
                 editor.putStringSet(PreferenceKeys.CONNECTIONS, savedNames);
-                editor.apply();
+                editor.commit();
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = preferences.edit();
 
                 Set<String> savedNames = preferences.getStringSet(PreferenceKeys.CONNECTIONS, new HashSet<String>());
                 savedNames.remove(user.getName());
                 editor.remove(PreferenceKeys.CONNECTIONS);
-                editor.apply();
+                editor.commit();
                 editor.putStringSet(PreferenceKeys.CONNECTIONS, savedNames);
                 editor.commit();
 
@@ -129,6 +130,8 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void connectionCheck(){
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Set<String> savedNames = preferences.getStringSet(PreferenceKeys.CONNECTIONS, new HashSet<String>());
         if (savedNames != null){
             if(savedNames.contains(user.getName())) {

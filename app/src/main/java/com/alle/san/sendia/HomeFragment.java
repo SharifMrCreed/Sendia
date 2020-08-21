@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.alle.san.sendia.adapters.UserDisplayAdapter;
 import com.alle.san.sendia.models.User;
-import com.alle.san.sendia.utils.Constants;
+import com.alle.san.sendia.utils.Globals;
 import com.alle.san.sendia.utils.Users;
 
 import java.util.ArrayList;
@@ -40,6 +40,6 @@ public class HomeFragment extends Fragment {
             matches.addAll(Arrays.asList(users.USERS));
         }
         usersRecyclerView.setAdapter(new UserDisplayAdapter(matches, getActivity()));
-        usersRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Constants.COLUMNS));
+        usersRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Globals.COLUMNS));
     }
 }

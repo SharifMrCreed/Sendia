@@ -44,7 +44,7 @@ public class UserDisplayAdapter extends RecyclerView.Adapter<UserDisplayAdapter.
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nUserRvClicks.whenUserClicks(users.get(position));
+                nUserRvClicks.whenUserIsClicked(users.get(position));
             }
         });
     }

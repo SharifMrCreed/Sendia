@@ -11,18 +11,23 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.FrameLayout;
 
 import com.alle.san.sendia.adapters.UserRvClicks;
+import com.alle.san.sendia.models.Message;
 import com.alle.san.sendia.models.User;
-import com.alle.san.sendia.utils.Constants;
+import com.alle.san.sendia.utils.Globals;
 import com.alle.san.sendia.utils.PreferenceKeys;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import static com.alle.san.sendia.utils.Globals.CHATS;
+import static com.alle.san.sendia.utils.Globals.INTENT_MESSAGE;
+
 public class MainActivity extends AppCompatActivity implements UserRvClicks {
     private static final String TAG = "MainScreen";
     BottomNavigationViewEx viewEx;
+    private int  container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks {
         Log.d(TAG, "onCreate: the activity is started");
 
         viewEx = findViewById(R.id.main_nav_bar);
+        container = R.id.main_content_container;
 
         loginDialog();
         initHomeFragment();
@@ -62,16 +68,30 @@ public class MainActivity extends AppCompatActivity implements UserRvClicks {
     }
 
     @Override
-    public void whenUserClicks(User user) {
+    public void whenUserIsClicked(User user) {
         UserProfileFragment userProfileFragment = new UserProfileFragment();
 
         Bundle args = new Bundle();
-        args.putParcelable(Constants.INTENT_USER, user);
+        args.putParcelable(Globals.INTENT_USER, user);
         userProfileFragment.setArguments(args);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content_container, userProfileFragment, getString(R.string.Login_fragment));
+        transaction.replace(container, userProfileFragment, getString(R.string.Login_fragment));
         transaction.addToBackStack(getString(R.string.Login_fragment));
+        transaction.commit();
+
+    }
+
+    @Override
+    public void whenMessageIsClicked(Message message) {
+        Bundle args = new Bundle();
+        args.putParcelable(INTENT_MESSAGE, message);
+
+        ChatsFragment chatsFragment = new ChatsFragment();
+        chatsFragment.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(container, chatsFragment, CHATS);
+        transaction.addToBackStack(CHATS);
         transaction.commit();
 
     }

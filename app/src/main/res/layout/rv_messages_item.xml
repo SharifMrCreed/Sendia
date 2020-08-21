@@ -18,6 +18,7 @@
         android:layout_marginStart="20dp" />
 
     <RelativeLayout
+        android:id="@+id/enter_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/image"
@@ -33,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="mitch:"
+                android:text="@string/allez_san"
                 android:id="@+id/name"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/Black"
@@ -51,13 +52,13 @@
                 android:layout_marginStart="5dp">
 
                 <TextView
+                    android:id="@+id/message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxHeight="40dp"
                     android:text="this is a message"
                     android:textColor="@color/Black"
-                    android:textSize="15sp"
-                    android:id="@+id/message"
-                    android:maxHeight="40dp"/>
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
@@ -65,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reply"
+                android:text="this is a Reply"
                 android:textColor="@color/DarkGrey"
                 android:textSize="13sp"
                 android:id="@+id/reply"
@@ -76,6 +77,13 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="30dp"
                 android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/nothing"
+                android:layout_width="257dp"
+                android:layout_height="42dp"
+                android:text="@string/no_messages"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
