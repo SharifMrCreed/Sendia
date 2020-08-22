@@ -9,6 +9,7 @@ public class Globals {
     public static final String NO_RESULTS = "Result Not found";
     public static final String INTENT_MESSAGE = "messageData";
     public static final String  CHATS = "Chats";
+    public static final String SETTINGS = "Settings";
 
     /** methods
      *
