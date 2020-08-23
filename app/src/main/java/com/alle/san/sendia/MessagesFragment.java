@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class MessagesFragment extends Fragment {
     RecyclerView rvMessages;
     TextView noMessages;
     SearchView messageSearch;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     MessagesDisplayAdapter messagesDisplayAdapter;
     ArrayList<User> users = new ArrayList<>();
@@ -53,9 +55,11 @@ public class MessagesFragment extends Fragment {
         rvMessages = view.findViewById(R.id.rv_messages);
         noMessages = view.findViewById(R.id.no_messages);
         messageSearch= view.findViewById(R.id.action_search);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
 
         getConnections();
         initMessagesRV();
+        refreshRecyclerView();
         searching();
 
         return view;
@@ -83,6 +87,16 @@ public class MessagesFragment extends Fragment {
 
     }
 
+    private void refreshRecyclerView() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getConnections();
+                messagesDisplayAdapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
     private void getConnections(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Set<String> savedNames = preferences.getStringSet(PreferenceKeys.CONNECTIONS, new HashSet<String>());

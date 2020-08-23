@@ -46,12 +46,16 @@
             android:text="@string/no_messages"
             android:layout_centerInParent="true"
             tools:visibility="invisible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_messages"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/rv_messages_item" />
+            android:id="@+id/swipe_refresh">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/rv_messages_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </RelativeLayout>
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -28,12 +29,8 @@ public class ConnectionsFragment extends Fragment {
     RecyclerView rvSavedConnections;
     TextView noConnections;
     ArrayList<User> connections = new ArrayList<>();
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +39,24 @@ public class ConnectionsFragment extends Fragment {
 
        rvSavedConnections = view.findViewById(R.id.rv_saved_connections);
        noConnections= view.findViewById(R.id.tvNoConnections);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
 
         connectionsRVData();
+        refreshRecyclerView();
 
        return view;
     }
 
+    private void refreshRecyclerView() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                connectionsRVData();
+                rvSavedConnections.getAdapter().notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
     private void connectionsRVData() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Set<String> savedNames = preferences.getStringSet(PreferenceKeys.CONNECTIONS, new HashSet<String>());
